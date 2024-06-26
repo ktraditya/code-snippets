@@ -1,7 +1,8 @@
 require 'zip'
 require 'fileutils'
+require 'find'
 
-# Function to find and extract zip file, and check for PDF files
+# Function to find and extract zip file, and check for PDF files recursively
 def process_zip_file(directory)
   zip_file_path = nil
 
@@ -34,8 +35,12 @@ def process_zip_file(directory)
 
   puts "Zip file extracted to #{extract_path}"
 
-  # Step 3: Check for PDF files
-  pdf_files = Dir.glob(File.join(extract_path, '**', '*.pdf'))
+  # Step 3: Check for PDF files recursively
+  pdf_files = []
+
+  Find.find(extract_path) do |path|
+    pdf_files << path if File.file?(path) && File.extname(path) == '.pdf'
+  end
 
   if pdf_files.any?
     puts "PDF files found:"
