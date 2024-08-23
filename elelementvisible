@@ -1,0 +1,15 @@
+ const isElement1Visible = await page.isVisible(element1Selector);
+    if (isElement1Visible) {
+        console.log(`${element1Selector} is visible on the page.`);
+    } else {
+        console.log(`${element1Selector} is not visible on the page.`);
+        console.log(`Looking for ${element2Selector}...`);
+
+        // Look for element2
+        const isElement2Visible = await page.isVisible(element2Selector);
+        if (isElement2Visible) {
+            console.log(`${element2Selector} is visible on the page.`);
+        } else {
+            console.log(`${element2Selector} is not visible on the page.`);
+        }
+    }
